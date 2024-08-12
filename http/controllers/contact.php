@@ -1,0 +1,4 @@
+<?php
+view("contact.view.php" , [
+    'heading' => 'contact us somewhere',
+]);
