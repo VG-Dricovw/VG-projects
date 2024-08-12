@@ -1,0 +1,12 @@
+{
+    "name": "dricovanwijk/xampp",
+    "require": {
+        "illuminate/collections": "^11.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    }
+}
