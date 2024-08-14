@@ -1,0 +1,49 @@
+## creational patterns
+abstract factory:
+uses inheritance and defines functions to allow for a type factory like modernFurnitureFactory. same methods different variants
+builder
+allows you to add functionality to a base object, like a sql query. the base SELECT * FROM USERS can be enhanced with WHERE, LIMIT ect
+factory method
+allows you to add different versions of one objects efficiently. 
+prototype
+you can easily clone the code to get new instances
+singleton
+give you a project-wide acces to a object that exists nowhere else
+
+## structural patterns
+adapter **
+allows the client to work with 3rd party apps fluently by translating 3rd party to client
+bridge
+allows multiple (data)types to be used interchangebly
+composite
+for bulding a tree like structure and selecting which elements (could be the same one)  one needs
+decorator
+you can add behaviors to objects dynamically
+facade
+make a function that does a lot of work with subsystems
+flyweight
+saves memory by having a shared attributes class and variation class
+proxy
+checks for access or previous download and takes that if availble, otherwise the normal way
+
+## behavioral patterns
+chain of responsibility
+passes a request past mulitple checkers which can all return different errors
+iterator
+runs through a collections and changes/imputates something along each line
+command
+queues the tasks and tracks the history of tasks in case of undo
+mediator
+make a object that lets component communicate thought the object
+memento
+make a snapshot and save it for the future (not that useful)
+observer
+make a object to notify other other objects changes
+state
+when a object state changes, you can change its behavior
+strategy
+combines different parts of a process classes with one interface
+visitor
+allows new behavior to existing class withing code altering
+template method
+ behavioral design pattern that allows you to define a skeleton of an algorithm in a base class and let subclasses override the steps without changing the overall algorithm’s structure.

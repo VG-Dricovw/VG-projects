@@ -25,4 +25,4 @@ list of things to keep in mind:
 24: avoid fluent interfaces: function setMake($this->make = $make) NOT function setMake($this->make = $make; return $this->make) 
 25: use final in class creations: interface Vehicle final class Car NOT final class Car 
 26: implement SOLID
-27: dont repeat yourself: showList($vehicle)  NOT showCarList {} showBikeList
+27: dont repeat yourself: showList($vehicle)  NOT showCarList {} showBikeList {}
