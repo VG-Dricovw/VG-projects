@@ -47,7 +47,7 @@ echo "<br>";
 
 
 
-abstract class Person {
+abstract class badPerson {
     public $name;
     public $age;
     public $gender;
