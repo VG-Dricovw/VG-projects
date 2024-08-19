@@ -15,15 +15,15 @@ $statement = <<<EOS
     INSERT INTO tasks
         (id, title, creator, category, Est_time, Real_time)
     VALUES
-        (1, 'support', 'donaled', 'could', "2 hours"),
-        (2, 'styling', 'Laios', 'sould', "full day"),
-        (3, 'header', 'Shinko', 'would', "half a day"),
-        (4, 'payment', 'Maria', 'must', "2 days");
+        (1, 'support', 'donaled', 'could', '2 hours', '2 hours'),
+        (2, 'styling', 'Laios', 'sould', 'full day', '2 hours'),
+        (3, 'header', 'Shinko', 'would', 'half a day', '2 hours'),
+        (4, 'payment', 'Maria', 'must', '2 days', '2 hours');
 EOS;
 
 try {
     $createTable = $dbConnection->exec($statement);
-    echo "Success!\n";
+    var_dump('succes');
 } catch (\PDOException $e) {
     exit($e->getMessage());
 }

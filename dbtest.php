@@ -1,5 +1,6 @@
 <?php
-use TableGateways\TaskGateway;
+require 'bootstrap.php';
+use Src\TableGateways\TaskGateway;
 
 $taskGateway = new TaskGateway($dbConnection);
 

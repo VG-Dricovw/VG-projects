@@ -1,6 +1,7 @@
 <?php
 
-namespace TableGateways;
+namespace Src\TableGateways;
+
 class TaskGateway
 {
 
