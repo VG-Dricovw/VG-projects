@@ -74,11 +74,35 @@
     </div>
   </div>
 </nav>
+<?php
+require 'bootstrap.php';
+use Src\TableGateways\TaskGateway;
 
+$taskGateway = new TaskGateway($dbConnection);
+
+$result = $taskGateway->findAll();
+
+
+$a = $result;
+
+
+echo "<br>";
+var_dump($result);
+echo "<br>";
+echo "<br>";
+echo "<br>";
+
+
+foreach ($a as $v1) {
+    foreach ($v1 as $v2) {
+        echo "$v2<br>";
+    }
+  }
+?>
 <!-- body -->
 <div class=" shadow-md sm:rounded-lg">
     <table class="my-0 mx-auto justify-center text-sm mt-10 text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3 flex">
                     Title
@@ -100,91 +124,71 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+            <tbody>
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">
-                    Silver
-                </td>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-                <td class="px-6 py-4">
-                    helo
-                </td>
-                <td>
-                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> |
-                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                </td>
+                  <?php
+                  foreach ($result as $index => $value) {
+                   echo "<td scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>";
+                    echo htmlspecialchars($value['title']) . "</td>
+                    <td>" . htmlspecialchars($value['creator']) . "</td>
+                    <td>" . htmlspecialchars($value['category']) . "</td>
+                    <td>" . htmlspecialchars($value['Est_time']) . "</td>
+                    <td>" . htmlspecialchars($value['Real_time']) . "</td>
+                    <td>   <a href='#' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Edit</a> |
+                     <a href='#' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Delete</a></td>                    
+                    </tr>";
+                  
+                  }
+                  ?>
             </tr>
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-                <td class="px-6 py-4">
-                    helo
-                </td>
-                <td>
-                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> |
-                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                </td>
+                  <?php
+                  foreach ($result as $row) {
+                   echo "<td scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>";
+                    echo htmlspecialchars($row['title']) . "</td>
+                    <td>" . htmlspecialchars($row['creator']) . "</td>
+                    <td>" . htmlspecialchars($row['category']) . "</td>
+                    <td>" . htmlspecialchars($row['Est_time']) . "</td>
+                    <td>" . htmlspecialchars($row['Real_time']) . "</td>
+                    <td>   <a href='#' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Edit</a> |
+                     <a href='#' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Delete</a></td>                    
+                    </tr>";
+                  
+                  }
+                  ?>
             </tr>
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                <td class="px-6 py-4">
-                    $99
-                </td>
-                <td class="px-6 py-4">
-                    helo
-                </td>
-                <td>
-                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> |
-                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                </td>
+                  <?php
+                  foreach ($result as $row) {
+                   echo "<td scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>";
+                    echo htmlspecialchars($row['title']) . "</td>
+                    <td>" . htmlspecialchars($row['creator']) . "</td>
+                    <td>" . htmlspecialchars($row['category']) . "</td>
+                    <td>" . htmlspecialchars($row['Est_time']) . "</td>
+                    <td>" . htmlspecialchars($row['Real_time']) . "</td>
+                    <td>   <a href='#' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Edit</a> |
+                     <a href='#' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Delete</a></td>                    
+                    </tr>";
+                  
+                  }
+                  ?>
             </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Google Pixel Phone
-                </th>
-                <td class="px-6 py-4">
-                    Gray
-                </td>
-                <td class="px-6 py-4">
-                    Phone
-                </td>
-                <td class="px-6 py-4">
-                    $799
-                </td>
-                <td class="px-6 py-4">
-                    helo
-                </td>
-                <td>
-                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> |
-                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                </td>
-            </tr>
+           <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                  <?php
+         foreach ($result as $row) {
+           echo "<td scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>";
+           echo htmlspecialchars($row['title']) . "</td>
+                    <td>" . htmlspecialchars($row['creator']) . "</td>
+                    <td>" . htmlspecialchars($row['category']) . "</td>
+                    <td>" . htmlspecialchars($row['Est_time']) . "</td>
+                    <td>" . htmlspecialchars($row['Real_time']) . "</td>
+                    <td>   <a href='#' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Edit</a> |
+                     <a href='#' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Delete</a></td>                    
+                    </tr>";
+
+         }
+         ?>
+          </tr>
         
             
         </tbody>
