@@ -9,17 +9,18 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 include_once "../core/initialize.php";
 
 
-$post = new Post($db);
+$task = new Task($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$post->id = $data->id;
-$post->title = $data->title;
-$post->body = $data->body;
-$post->author = $data->author;
-$post->category_id = $data->category_id;
+$task->id = $data->id;
+$task->name = $data->name;
+$task->creator = $data->creator;
+$task->category = $data->category;
+$task->est_time = $data->est_time;
+$task->real_time = isset($data->real_time) ? $data->real_time : null;
 
-if ($post->update()) {
+if ($task->update()) {
     echo json_encode(array('message' => "post updated"));
 } else {
     echo json_encode(array("message" => "post not updated"));

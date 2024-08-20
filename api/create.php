@@ -9,16 +9,19 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 include_once "../core/initialize.php";
 
 
-$post = new Post($db);
+$task = new Task($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$post->title = $data->title;
-$post->body = $data->body;
-$post->author = $data->author;
-$post->category_id = $data->category_id;
+$task->name = $data->name;
+$task->creator = $data->creator;
+$task->category = $data->category;
+$task->est_time = $data->est_time;
+$task->real_time = isset($data->real_time) ? $data->real_time : null;
 
-if ($post->create()) {
+echo "here is where it goes wrong<br>" . $task->name ."". $task->creator ."";
+
+if ($task->create()) {
     echo json_encode(array('message' => "post created"));
 } else {
     echo json_encode(array("message" => "post not created"));

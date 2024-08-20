@@ -6,30 +6,30 @@ header('Content-Type: application/json');
 include_once "../core/initialize.php";
 
 
-$post = new Post($db);
+$task = new Task($db);
 
 
-$result = $post->read();
+$result = $task->read();
 
 $num = $result->rowCount();
 
 if ($num > 0) {
-    $post_arr = array();
-    $post_arr['data'] = array();
+    $task_arr = array();
+    $task_arr['data'] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
-        $post_item = array(
+        $task_item = array(
             'id' => $id,
-            'title' => $title,
-            'body'=> html_entity_decode($body),
-            'author' => $author,
-            'category_id' => $category_id,
-            'category_name'=> $category_name
+            'name' => $name,
+            'creator'=> $creator,
+            'category'=> $category,
+            'est_time'=> $est_time,
+            'real_time'=> $real_time,
         );
-        array_push($post_arr['data'], $post_item);
+        array_push($task_arr['data'], $task_item);
     }
-    echo json_encode($post_arr);
+    echo json_encode($task_arr);
 } else {
-    echo json_encode(array('message '=> 'no post found'));
+    echo json_encode(array('message '=> 'no task found'));
 }

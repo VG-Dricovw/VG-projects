@@ -6,22 +6,22 @@ header("Content-Type: application/json");
 include_once("../core/initialize.php");
 
 
-$post = new Post($db);
+$task = new Task($db);
 
-$post->id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
+$task->id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
 
-$post->read_single();
+$task->read_single();
 
-$post_arr = array(
-    "id"=> $post->id,
-    "title" => $post->title,
-    "body" => $post->body,
-    "author" => $post->author,
-    "category_id" => $post->category_id,
-    "category_name" => $post->category_name,
+$task_arr = array(
+    "id"=> $task->id,
+    "name" => $task->name,
+    "creator" => $task->creator,
+    "category" => $task->category,
+    "est_time"=> $task->est_time,
+    "real_time"=> $task->real_time,
 
 );
 
 
-print_r(json_encode($post_arr));
+print_r(json_encode($task_arr));
 
