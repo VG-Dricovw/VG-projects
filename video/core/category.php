@@ -1,17 +1,13 @@
 <?php
 
-class POST
+class Category
 {
     private $conn;
 
-    private $table = "posts";
+    private $table = "categories";
 
     public $id;
-    public $category_id;
-    public $category_name;
-    public $title;
-    public $body;
-    public $author;
+    public $name;
     public $created_at;
 
     public function __construct($db)
@@ -22,19 +18,7 @@ class POST
 
     public function read()
     {
-        $query = 'SELECT
-        c.name as category_name,
-        p.id,
-        p.category_id,
-        p.title,
-        p.body,
-        p.author,
-        p.created_at
-        FROM
-        ' . $this->table . ' p
-        LEFT JOIN
-        categories c ON p.category_id = c.id
-        ORDER BY p.created_at DESC';
+        $query = 'SELECT * FROM ' . $this->table;
 
         $stmt = $this->conn->prepare($query);
 
@@ -126,8 +110,9 @@ class POST
         return false;
     }
 
-    public function delete() {
-        $query = 'DELETE FROM '. $this->table . ' WHERE ID = :id';
+    public function delete()
+    {
+        $query = 'DELETE FROM ' . $this->table . ' WHERE ID = :id';
         $stmt = $this->conn->prepare($query);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
@@ -144,5 +129,5 @@ class POST
         return false;
     }
 
-    
+
 }
