@@ -12,9 +12,6 @@ include_once "../../core/initialize.php";
 $task = new Task($db);
 
 $data = json_decode(file_get_contents("php://input"));
-// echo "data: ";
-// var_dump($data[0]);
-// echo "<br>";
 $task->id = $data[0];
 
 

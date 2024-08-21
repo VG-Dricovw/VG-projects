@@ -14,8 +14,8 @@ $task->read_single();
 
 $task_arr = array(
     "id"=> $task->id,
+    "title" => $task->title,
     "name" => $task->name,
-    "creator" => $task->creator,
     "category" => $task->category,
     "est_time"=> $task->est_time,
     "real_time"=> $task->real_time,

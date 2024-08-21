@@ -10,7 +10,7 @@
 
 <body>
 
-  <?php require "partials/nav.php"; ?>
+  <?php require "../partials/nav.php"; ?>
 
     <div class=" shadow-md sm:rounded-lg">
         <table
@@ -39,7 +39,7 @@
             </thead>
             <tbody>
                 <?php
-                require_once("callAPI.php");
+
                 $id = $_GET["id"];
                 
                 $Json = CallAPI("GET", "http://localhost/api/task/read_single.php?id=$id");

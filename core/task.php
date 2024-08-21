@@ -7,8 +7,8 @@ class Task
     private $table = "tasks";
 
     public $id;
+    public $title;
     public $name;
-    public $creator;
     public $category;
     public $est_time;
     public $real_time;
@@ -23,8 +23,8 @@ class Task
     {
         $query = 'SELECT
         id,
+        title,
         name,
-        creator,
         category,
         est_time,
         real_time
@@ -42,8 +42,8 @@ class Task
     {
         $query = 'SELECT
         id,
+        title,
         name,
-        creator,
         category,
         est_time,
         real_time
@@ -56,8 +56,8 @@ class Task
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        $this->title = $row['title'];
         $this->name = $row['name'];
-        $this->creator = $row['creator'];
         $this->category = $row['category'];
         $this->est_time = $row['est_time'];
         $this->real_time = $row['real_time'];
@@ -67,18 +67,18 @@ class Task
 
     public function create()
     {
-        $query = 'INSERT INTO ' . $this->table . ' SET name = :name, creator = :creator, category = :category, est_time = :est_time, real_time = :real_time';
+        $query = 'INSERT INTO ' . $this->table . ' SET title = :title, name = :name, category = :category, est_time = :est_time, real_time = :real_time';
 
         $stmt = $this->conn->prepare($query);
        
+        $this->title = htmlspecialchars(strip_tags($this->title));
         $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->creator = htmlspecialchars(strip_tags($this->creator));
         $this->category = htmlspecialchars(strip_tags($this->category));
         $this->est_time = htmlspecialchars(strip_tags($this->est_time));
         $this->real_time = htmlspecialchars(strip_tags($this->real_time));
 
+        $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':creator', $this->creator);
         $stmt->bindParam(':category', $this->category);
         $stmt->bindParam(':est_time', $this->est_time);
         $stmt->bindParam(':real_time', $this->real_time);
@@ -95,19 +95,19 @@ class Task
     public function update()
     {
         $query = 'UPDATE ' . $this->table . '
-        SET name = :name, creator = :creator, category = :category, est_time = :est_time, real_time = :real_time
+        SET title = :title, name = :name, category = :category, est_time = :est_time, real_time = :real_time
         WHERE ID = :id';
 
         $stmt = $this->conn->prepare($query);
 
+        $this->title = htmlspecialchars(strip_tags($this->title));
         $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->creator = htmlspecialchars(strip_tags($this->creator));
         $this->category = htmlspecialchars(strip_tags($this->category));
         $this->est_time = htmlspecialchars(strip_tags($this->est_time));
         $this->real_time = htmlspecialchars(strip_tags($this->real_time));;
 
+        $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':creator', $this->creator);
         $stmt->bindParam(':category', $this->category);
         $stmt->bindParam(':est_time', $this->est_time);
         $stmt->bindParam(':real_time', $this->real_time);

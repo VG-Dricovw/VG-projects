@@ -10,7 +10,10 @@
 
 <body>
 
-  <?php require "partials/nav.php"; ?>
+  <?php 
+
+  require "partials/nav.php";
+   ?>
 
   <div>
     <button class="bg-blue-500 rounded-md text-white p-2 m-2 content-right"><a href="/task/create.php">create task</a></button>
@@ -23,7 +26,7 @@
             Title
           </th>
           <th scope="col" class="px-6 py-3">
-            Creator
+            Name
           </th>
           <th scope="col" class="px-6 py-3">
             Category
@@ -41,18 +44,31 @@
       </thead>
       <tbody>
           <?php
-          require_once("callAPI.php");
-          $Json = CallAPI("GET", "http://localhost/api/task/read.php");
-          $results = json_decode($Json, true)["data"];
+          // require_once("callAPI.php");
+          // $UserJson = CallAPI("GET", "http://localhost/api/user/read.php");
+          // $Userresults = json_decode($UserJson, true)["data"];
+          // var_dump($Userresults[0]['name']);
+          $TaskJson = CallAPI("GET", "http://localhost/api/task/read.php");
+          $Taskresults = json_decode($TaskJson, true)["data"];
+          // var_dump($Taskresults);
+          echo"<br>";
+          array_filter($Taskresults, function ($value) {
+              // return $value['name'] == $session[]['name'];
+            //  return $value
+            var_dump($value);
+          });
+          echo "<br>";
+          // var_dump($Taskresults);
           // var_dump($results["name"]);
+          $results = $Taskresults;
           ?>
       <?php
           foreach ($results as $result) {
           echo "<tr class='odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700'>";
            echo "<td scope='row' class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-           <a href='/show.php?id=$result[id]' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>";
-            echo htmlspecialchars($result['name']) . "</a></td>
-            <td>" . htmlspecialchars($result["creator"]) . "</td>
+           <a href='/task/show.php?id=$result[id]' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>";
+            echo htmlspecialchars($result['title']) . "</a></td>
+            <td>" . htmlspecialchars($result["name"]) . "</td>
             <td>" . htmlspecialchars($result["category"]) . "</td>
             <td>" . htmlspecialchars($result["est_time"]) . "</td>
             <td>" . htmlspecialchars($result["real_time"]) . "</td>

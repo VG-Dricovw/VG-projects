@@ -16,8 +16,8 @@ echo"data:  ";
 var_dump($data);
 
 $task->id = $data->id;
+$task->title = $data->title;
 $task->name = $data->name;
-$task->creator = $data->creator;
 $task->category = $data->category;
 $task->est_time = $data->est_time;
 $task->real_time = isset($data->real_time) ? $data->real_time : null;

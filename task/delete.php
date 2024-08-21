@@ -10,7 +10,7 @@
 
 <body>
     <?php
-    require_once("../callAPI.php");
+  
     $id = $_GET["id"];
 
     function deleteTask($id)

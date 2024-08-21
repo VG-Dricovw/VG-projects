@@ -21,8 +21,8 @@ if ($num > 0) {
         extract($row);
         $task_item = array(
             'id' => $id,
-            'name' => $name,
-            'creator'=> $creator,
+            'title' => $title,
+            'name'=> $name,
             'category'=> $category,
             'est_time'=> $est_time,
             'real_time'=> $real_time,

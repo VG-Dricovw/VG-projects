@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <?php
-require_once("../callAPI.php");
+require "../partials/nav.php";
 // var_dump($_SERVER['REQUEST_METHOD']);
 $id = $_GET["id"];
 $Json = CallAPI("GET", "http://localhost/api/task/read_single.php?id=$id");
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 ?>
 <body>
 
-<?php require "../partials/nav.php"; ?>
+
 
 
     <form class="ml-52" method="POST">

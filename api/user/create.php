@@ -9,19 +9,16 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 include_once "../../core/initialize.php";
 
 
-$task = new Task($db);
+$user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$task->title = $data->title;
-$task->name = $data->name;
-$task->category = $data->category;
-$task->est_time = $data->est_time;
-$task->real_time = isset($data->real_time) ? $data->real_time : null;
+$user->name = substr($data->email, 0, strpos($data->email, "@"));
+$user->email = $data->email;
+$user->password = $data->password;
 
-
-if ($task->create()) {
-    echo json_encode(array('message' => "post created"));
+if ($user->create()) {
+    echo json_encode(array('message' => "user created"));
 } else {
-    echo json_encode(array("message" => "post not created"));
+    echo json_encode(array("message" => "user not created"));
 }
