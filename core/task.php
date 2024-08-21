@@ -67,7 +67,6 @@ class Task
 
     public function create()
     {
-        echo "create function task.php <br>";
         $query = 'INSERT INTO ' . $this->table . ' SET name = :name, creator = :creator, category = :category, est_time = :est_time, real_time = :real_time';
 
         $stmt = $this->conn->prepare($query);
@@ -122,23 +121,24 @@ class Task
         return false;
     }
 
-    // public function delete() {
-    //     $query = 'DELETE FROM '. $this->table . ' WHERE ID = :id';
-    //     $stmt = $this->conn->prepare($query);
+    public function delete() {
 
-    //     $this->id = htmlspecialchars(strip_tags($this->id));
-    //     var_dump($this->id);
+        $query = 'DELETE FROM '. $this->table . ' WHERE ID = :id';
+        $stmt = $this->conn->prepare($query);
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        var_dump($this->id);
 
 
-    //     $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':id', $this->id);
 
-    //     if ($stmt->execute()) {
-    //         return true;
-    //     }
+        if ($stmt->execute()) {
+            return true;
+        }
 
-    //     printf('error %s. /n', $stmt->error);
-    //     return false;
-    // }
+        printf('error %s. /n', $stmt->error);
+        return false;
+    }
 
     
 }

@@ -6,14 +6,17 @@ header('Access-Control-Allow-Methods: DELETE');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization ');
 
 
-include_once "../core/initialize.php";
+include_once "../../core/initialize.php";
 
 
-$task = new Post($db);
+$task = new Task($db);
 
 $data = json_decode(file_get_contents("php://input"));
+// echo "data: ";
+// var_dump($data[0]);
+// echo "<br>";
+$task->id = $data[0];
 
-$task->id = $data->id;
 
 
 if ($task->delete()) {
