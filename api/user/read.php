@@ -8,6 +8,7 @@ include_once "../../core/initialize.php";
 
 $user = new User($db);
 
+// var_dump(  "heldklfsldkf");
 
 $result = $user->read();
 

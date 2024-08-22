@@ -1,3 +1,10 @@
+<?php
+function urlIs($value)
+{
+    return $_SERVER['REQUEST_URI'] === $value;
+}
+
+?>
 <nav class="bg-gray-800">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex flex-row h-16 items-center justify-between">
@@ -42,10 +49,12 @@
                     <div class="flex space-x-4">
 
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="/index.php" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                        <a href="/" class="<?= urlIs("/") ? 'bg-gray-900 text-white' : ''; ?>
+                        rounded-md  px-3 py-2 text-sm font-medium text-gray-500"
                             aria-current="page">Dashboard</a>
-                        <a href="#"
-                            class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
+                        <a href="/task/team.php"
+                            class=" <?= urlIs("/task/team.php") ? 'bg-gray-900 text-white' : ''; ?>
+                        rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
                     </div>
                 </div>
             </div>
@@ -85,7 +94,7 @@
                         </form>
                     <?php else: ?>
                         <a href="/account/register.php"
-                            class="rounded-md relative flex px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+                            class="rounded-md relative text-white flex px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
                             register</a>
                         <a href="/account/login.php"
                             class="rounded-md relative flex px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">

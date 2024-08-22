@@ -12,7 +12,7 @@ include_once "../../core/initialize.php";
 $task = new Task($db);
 
 $data = json_decode(file_get_contents("php://input"));
-$task->id = $data[0];
+$task->id = $data->id;
 
 
 
