@@ -8,7 +8,6 @@ include_once "../../core/initialize.php";
 
 $user = new User($db);
 
-// var_dump(  "heldklfsldkf");
 
 $result = $user->read();
 
@@ -24,7 +23,8 @@ if ($num > 0) {
             'id' => $id,
             'name' => $name,
             'email' => $email,
-            'password' => $password
+            'password' => $password,
+            'role' => $role
         );
         array_push($user_arr['data'], $user_item);
     }

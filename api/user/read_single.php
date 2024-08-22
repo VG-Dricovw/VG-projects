@@ -8,9 +8,10 @@ include_once "../../core/initialize.php";
 
 $user = new User($db);
 
+// $user->id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
 
-$user->id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
-
+$user->id = $user->name $token
+var_dump($_GET['token']);
 
 $user->read_single();
 

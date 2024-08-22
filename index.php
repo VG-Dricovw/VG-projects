@@ -4,6 +4,8 @@ if (!$_SESSION ?? false) {
   header('location: /account/login.php');
   exit();
 }
+// var_dump($_SERVER);
+//$_SERVER["HTTP_AUTHORIZATION"
 ?>
 <!DOCTYPE html>
 <html lang="en">
