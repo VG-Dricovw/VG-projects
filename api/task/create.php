@@ -12,7 +12,7 @@ include_once "../../core/initialize.php";
 $task = new Task($db);
 
 $data = json_decode(file_get_contents("php://input"));
-
+//Jwt->decode('token from endcode')
 $task->title = $data->title;
 $task->name = $data->name;
 $task->category = $data->category;

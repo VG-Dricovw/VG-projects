@@ -12,27 +12,49 @@
   <?php
   require_once("../callAPI.php");
   session_start();
-
-  //check form and db
-  
-  //form
-  if ($_SERVER['REQUEST_METHOD'] === "POST") {
+  // $drico = [
+    //   "email"=> "drico",
+    //   "password"=> "diffy",
+    // ];
+    // $intern = [
+      //   "email"=> "intern",
+      //   "password"=> "jiffy",
+      // ];
+      // $JWT->encode($FormJson);
+      // $Jwt = new Jwt($FormJson['email']);
+      // echo"post:<br>";
+      // var_dump($_POST);
+      // $ecoded1 = $user1->encode($drico);
+      // $decoded1 = $user1->decode($ecoded1);
+      // $ecoded2 = $user2->encode($intern);
+      // $decoded2 = $user2->decode($ecoded2);
+      // echo'<br>decoded:<br>';
+      // var_dump($decoded2);
+      // var_dump($decoded1);
+      
+      
+      //form
+      if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        $DBJson = CallAPI("GET", "http://localhost/api/user/read.php");
+        $DBresults = json_decode($DBJson, true)["data"];
+        $FormJson = $_POST;
+        require_once("../core/Jwt.php");
+        $Jtw = new Jwt('login');
     
-    $DBJson = CallAPI("GET", "http://localhost/api/user/read.php");
-    $DBresults = json_decode($DBJson, true)["data"];
-
-    $FormJson = $_POST;
+    
 
     foreach ($DBresults as $result) {
+
       if ($result['email'] === $FormJson['email'] && $result['password'] === $FormJson['password']) {
         $_SESSION['user'] = [
           'email' => $FormJson['email'],
           'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@"))
         ];
 
-        session_regenerate_id(true);
-        header('location: /index.php');
-        exit;
+
+        // session_regenerate_id(true);
+        // header('location: /index.php');
+        // exit;
       }
     }
   }

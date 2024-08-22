@@ -9,6 +9,7 @@ include_once "../../core/initialize.php";
 $task = new Task($db);
 
 $task->id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
+//Jwt->decode('token from endcode')
 
 $task->read_single();
 

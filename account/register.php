@@ -15,26 +15,36 @@
   session_start();
 
 
+
   if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    require_once("../core/Jwt.php");
+    $Jwt = new Jwt('register');
+
     $FormJson = $_POST;
-    var_dump($FormJson);
-    $APIJson = CallAPI("POST", "http://localhost/api/user/create.php", $FormJson);
+    // var_dump($FormJson);
+    $Jwt->encode($FormJson);
+    $APIJson = CallAPI("POST", "http://localhost/api/user/create.php", $Jwt);
     $APIresults = json_decode($APIJson, true);
     
-    if ($APIresults['message'] == 'user created') {
-    // if (true) {
-      $_SESSION['user'] = [
-        'email' => $FormJson['email'],
-        'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@"))
-      ];
 
-      header('location: /index.php');
-      var_dump($_SESSION['user']);
+    if ($APIresults['message'] == 'user created') {
+      // if (true) {
+        $_SESSION['user'] = [
+          'email' => $FormJson['email'],
+          'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@"))
+        ];
+        
+        header('location: /index.php');
+        var_dump($_SESSION['user']);
       exit;
     }
     echo 'no user created';
   }
   ?>
+
+
+
+
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"

@@ -129,7 +129,7 @@ class Task
         $stmt = $this->conn->prepare($query);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
-        var_dump($this->id);
+        // var_dump($this->id);
 
 
         $stmt->bindParam(':id', $this->id);

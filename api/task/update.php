@@ -12,7 +12,8 @@ include_once "../../core/initialize.php";
 $task = new Task($db);
 
 $data = json_decode(file_get_contents("php://input"));
-var_dump($data);
+// var_dump($data);
+//Jwt->decode('token from endcode')
 
 $task->id = $data->id;
 $task->title = $data->title;
