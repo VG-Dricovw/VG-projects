@@ -5,11 +5,30 @@ if (!$_SESSION ?? false) {
   exit();
 }
 
-// require ("core/Jwt.php");
-var_dump(headers_list());
 
-// $Jwt = new Jwt($_SESSION['user']['name']);
-// var_dump($Jwt->decode($_SESSION['user']['token']));
+$json = [
+  'email' => "dora",
+  "name"=> "explorer",
+  "password"=> "boots",
+];
+
+require ("core/Jwt.php");
+$nameJwt = new Jwt('name' . 'role');
+$token = $nameJwt->encode($json);
+
+$decoded = $nameJwt->decode($token);
+var_dump($decoded);
+
+echo '<br>';
+$nonameJwt = new Jwt('name' . 'role');
+$differentname = $nonameJwt->decode($token);
+var_dump($differentname);
+
+// $_SESSION['test'] = [
+//   "oldname" => $token,
+//   "newname" => $encoded
+// ];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

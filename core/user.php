@@ -41,6 +41,7 @@ class User
         ' . $this->table . ' WHERE name = :id LIMIT 1';
 
 
+
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $this->id);
         $stmt->execute();
@@ -56,26 +57,44 @@ class User
 
     public function create()
     {
-        $query = 'INSERT INTO ' . $this->table . ' SET name = :name, email = :email, password = :password, token = :token';
+        // var_dump("core user");
+        $idquery = "SHOW TABLE STATUS LIKE '$this->table'";
+        $idstmt = $this->conn->prepare($idquery);
+        $idstmt->execute();
+
+        require_once("../../core/Jwt.php");
+        $Jwt = new Jwt(substr($this->email, 0, strpos($this->email, "@")));
+        
+        $row = $idstmt->fetch(PDO::FETCH_ASSOC);
+        echo "<br><br><br>";
+        $this->id = $row['Auto_increment'];
+
+
+        $query = 'INSERT INTO ' . $this->table . ' SET name = :name, email = :email, password = :password';
+        $tokenquery = "INSERT INTO TOKENS SET id = :id, token = :token";
 
         $stmt = $this->conn->prepare($query);
-        
+        $tokenstmt = $this->conn->prepare($tokenquery);
+
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->password = htmlspecialchars(strip_tags($this->password));
-        
+
         $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $password_hash);
-        $stmt->bindParam(':token', $this->token);
+        $tokenstmt->bindParam(':token', $this->token);
+        $tokenstmt->bindParam(':id', $this->id);
 
-        if ($stmt->execute()) {
+        // if ($stmt->execute()) {
+            if ($stmt->execute() && $tokenstmt->execute()) {
             return true;
         }
 
         printf('error %s. /n', $stmt->error);
+        // printf('error %s. /n', $tokenstmt->error);
         return false;
     }
 

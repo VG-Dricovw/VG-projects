@@ -10,31 +10,20 @@ include_once "../../core/initialize.php";
 
  
 $user = new User($db);
-
+var_dump('create user');
 
 
 $data = json_decode(file_get_contents("php://input"));
-// echo "api creation";
+echo "data:";
 var_dump($data);
-require_once("../core/Jwt.php");
-$Jwt = new Jwt(substr($data->email, 0, strpos($data->email, "@")));
+echo "<br>";
+
 
 
 $user->name = substr($data->email, 0, strpos($data->email, "@"));
 $user->email = $data->email;
 $user->password = $data->password;
-$user->token = $Jwt->encode($data);
-
-$payload = [
-    "id"=> $user->id,
-    "name" => $user->name,
-];
-
-// $JwtController = new JWT($_ENV["SECRET_KEY"]);
-
-// $token = $$JwtController->encode($payload);
-
-// echo json_encode(["token" => $token]);
+$user->token = $data->token;
 
 if ($user->create()) {
     echo json_encode(array('message' => "user created"));

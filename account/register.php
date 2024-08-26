@@ -16,25 +16,25 @@
   
   if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $FormJson = $_POST;
-       
-    var_dump($FormJson);
+
+    // var_dump($FormJson);
     $APIJson = CallAPI("POST", "http://localhost/api/user/create.php", $FormJson);
     $APIresults = json_decode($APIJson, true);
 
-    // var_dump($Jwt->encode($FormJson));
+    var_dump($APIresults);
     if ($APIresults['message'] == 'user created') {
-        $_SESSION['user'] = [
-          'email' => $FormJson['email'],
-          'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@")),
-        ];
-        
-        header('location: /index.php');
-        // var_dump($_SESSION['user']);
+      $_SESSION['user'] = [
+        'email' => $FormJson['email'],
+        'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@")),
+      ];
+
+      // header('location: /index.php');
+      // var_dump($_SESSION['user']);
       exit;
     } else {
       echo 'no user created';
     }
-    
+
   }
   ?>
 
@@ -80,6 +80,12 @@
       </form>
 
 
+      <div class="mt-10">
+      <a
+      href="/account/login.php">
+        <button
+          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">go to login</button></a>
+        </div>
     </div>
   </div>
 

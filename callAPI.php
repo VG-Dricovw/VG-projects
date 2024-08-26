@@ -33,8 +33,8 @@ function CallAPI($method, $url, $isData = false) {
 
     $result = curl_exec($curl);
     curl_close($curl);
-    // echo "result: ";
-    // var_dump($result);
-    // echo "<br>";
+    echo "result: ";
+    var_dump($result);
+    echo "<br>";
     return $result;
 } 
