@@ -9,6 +9,11 @@ class Jwt
 
     }
 
+
+    public function getKey() {
+        return $this->key;
+    }
+
     public function encode(array $payload): string
     {
 
@@ -28,8 +33,12 @@ class Jwt
 
 
 
-    public function decode(string $token): array
+    public function decode(string $token, $key = null): array
     {
+        if ($key === null) {
+            $key = $this->key;
+        }   
+        
         if (
             preg_match(
                 "/^(?<header>.+)\.(?<payload>.+)\.(?<signature>.+)$/",
@@ -44,7 +53,7 @@ class Jwt
         $signature = hash_hmac(
             "sha256",
             $matches["header"] . "." . $matches["payload"],
-            $this->key,
+            $key,
             true
         );
 

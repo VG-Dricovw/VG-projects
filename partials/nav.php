@@ -65,6 +65,7 @@ function urlIs($value)
                 <div class="relative flex flex-nowrap">
                     <?php
                     session_start();
+                 
                     if (str_contains($_SERVER['REQUEST_URI'], "task")) {
                         require("../callAPI.php");
                     } else {
@@ -72,12 +73,17 @@ function urlIs($value)
                     }
 
                     echo "<div class='text-white mr-10'>";
+                    if (isset($Jwt)) {
+                        var_dump($Jwt);
+                    } else {
+                        echo "no jwt            ";
+                    }
                     print_r($_SESSION['user']['name']);
                     // print_r($_SESSION);
                     echo "</div>";
                     if ($_SESSION['user'] ?? false):
-              
-                        ?>
+
+                    ?>
                         <button type="button"
                             class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                             id="user-menu-button" aria-expanded="false" aria-haspopup="true">
@@ -99,8 +105,8 @@ function urlIs($value)
                         <a href="/account/login.php"
                             class="rounded-md relative flex px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
                             login</a>
-                    </div>
-                <?php endif; ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
     </div>
