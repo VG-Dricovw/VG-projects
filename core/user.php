@@ -10,7 +10,7 @@ class User
     public $name;
     public $email;
     public $password;
-    public $role;
+    public $token;
 
     public function __construct($db)
     {
@@ -36,7 +36,7 @@ class User
         name,
         email,
         password,
-        role
+        token
         FROM 
         ' . $this->table . ' WHERE name = :id LIMIT 1';
 
@@ -49,14 +49,14 @@ class User
         $this->name = $row['name'];
         $this->email = $row['email'];
         $this->password = $row['password'];
-        $this->role = $row['role'];
+        $this->token = $row['token'];
 
         return $stmt;
     }
 
     public function create()
     {
-        $query = 'INSERT INTO ' . $this->table . ' SET name = :name, email = :email, password = :password';
+        $query = 'INSERT INTO ' . $this->table . ' SET name = :name, email = :email, password = :password, token = :token';
 
         $stmt = $this->conn->prepare($query);
         
@@ -69,6 +69,7 @@ class User
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $password_hash);
+        $stmt->bindParam(':token', $this->token);
 
         if ($stmt->execute()) {
             return true;
@@ -79,7 +80,7 @@ class User
     }
 
     // public function update()
-    // {
+    // { 
     //     $query = 'UPDATE ' . $this->table . '
     //     SET title = :title, body = :body, author = :author, category_id = :category_id
     //     WHERE ID = :id';

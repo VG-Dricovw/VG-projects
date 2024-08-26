@@ -4,8 +4,12 @@ if (!$_SESSION ?? false) {
   header('location: /account/login.php');
   exit();
 }
-// var_dump($_SERVER);
-//$_SERVER["HTTP_AUTHORIZATION"
+
+// require ("core/Jwt.php");
+var_dump(headers_list());
+
+// $Jwt = new Jwt($_SESSION['user']['name']);
+// var_dump($Jwt->decode($_SESSION['user']['token']));
 ?>
 <!DOCTYPE html>
 <html lang="en">

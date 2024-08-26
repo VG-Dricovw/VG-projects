@@ -39,7 +39,7 @@
         $DBresults = json_decode($DBJson, true)["data"];
         $FormJson = $_POST;
         require_once("../core/Jwt.php");
-        $Jtw = new Jwt('login');
+        $Jwt = new Jwt('login');
     
     
 
@@ -101,10 +101,11 @@
       </form>
 
       <div class="mt-10">
+      <a
+      href="/account/register.php">
         <button
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"><a
-            href="/account/register.php">go to register</a></button>
-      </div>
+          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">go to register</button></a>
+        </div>
 
 
     </div>

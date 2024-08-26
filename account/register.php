@@ -13,32 +13,28 @@
   <?php
   require_once("../callAPI.php");
   session_start();
-
-
-
+  
   if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    require_once("../core/Jwt.php");
-    $Jwt = new Jwt('register');
-
     $FormJson = $_POST;
-    // var_dump($FormJson);
-    $Jwt->encode($FormJson);
-    $APIJson = CallAPI("POST", "http://localhost/api/user/create.php", $Jwt);
+       
+    var_dump($FormJson);
+    $APIJson = CallAPI("POST", "http://localhost/api/user/create.php", $FormJson);
     $APIresults = json_decode($APIJson, true);
-    
 
+    // var_dump($Jwt->encode($FormJson));
     if ($APIresults['message'] == 'user created') {
-      // if (true) {
         $_SESSION['user'] = [
           'email' => $FormJson['email'],
-          'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@"))
+          'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@")),
         ];
         
         header('location: /index.php');
-        var_dump($_SESSION['user']);
+        // var_dump($_SESSION['user']);
       exit;
+    } else {
+      echo 'no user created';
     }
-    echo 'no user created';
+    
   }
   ?>
 
