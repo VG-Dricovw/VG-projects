@@ -1,15 +1,12 @@
 <?php
 
-class User
+class Token
 {
     private $conn;
 
-    private $table = "users";
+    private $table = "tokens";
 
     public $id;
-    public $name;
-    public $email;
-    public $password;
     public $token;
 
     public function __construct($db)
@@ -33,11 +30,9 @@ class User
     {
         $query = 'SELECT
         id,
-        name,
-        email,
-        password
+        token
         FROM 
-        ' . $this->table . ' WHERE name = :id LIMIT 1';
+        ' . $this->table . ' WHERE id = :id LIMIT 1';
 
 
 
@@ -46,48 +41,51 @@ class User
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->name = $row['name'];
-        $this->email = $row['email'];
-        $this->password = $row['password'];
+        $this->token = $row['token'];
 
         return $stmt;
     }
 
-    public function create()
-    {
-        // var_dump("core user");
-        $idquery = "SHOW TABLE STATUS LIKE '$this->table'";
-        $idstmt = $this->conn->prepare($idquery);
-        $idstmt->execute();
+    // public function create()
+    // {
+    //     // var_dump("core user");
+    //     $idquery = "SHOW TABLE STATUS LIKE '$this->table'";
+    //     $idstmt = $this->conn->prepare($idquery);
+    //     $idstmt->execute();
+
+        
+    //     $row = $idstmt->fetch(PDO::FETCH_ASSOC);
+    //     echo "<br><br><br>";
+    //     $this->id = $row['Auto_increment'];
 
 
-        $row = $idstmt->fetch(PDO::FETCH_ASSOC);
-        $this->id = $row['Auto_increment'];
+    //     $query = 'INSERT INTO ' . $this->table . ' SET name = :name, email = :email, password = :password';
+    //     $tokenquery = "INSERT INTO TOKENS SET id = :id, token = :token";
 
+    //     $stmt = $this->conn->prepare($query);
+    //     $tokenstmt = $this->conn->prepare($tokenquery);
 
-        $query = 'INSERT INTO ' . $this->table . ' SET name = :name, email = :email, password = :password';
-        $tokenquery = "INSERT INTO TOKENS SET id = :id, token = :token";
+    //     $this->name = htmlspecialchars(strip_tags($this->name));
+    //     $this->email = htmlspecialchars(strip_tags($this->email));
+    //     $this->password = htmlspecialchars(strip_tags($this->password));
 
-        $stmt = $this->conn->prepare($query);
-        $tokenstmt = $this->conn->prepare($tokenquery);
+    //     $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 
-        $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->email = htmlspecialchars(strip_tags($this->email));
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+    //     $stmt->bindParam(':name', $this->name);
+    //     $stmt->bindParam(':email', $this->email);
+    //     $stmt->bindParam(':password', $password_hash);
+    //     $tokenstmt->bindParam(':token', $this->token);
+    //     $tokenstmt->bindParam(':id', $this->id);
 
+    //     // if ($stmt->execute()) {
+    //         if ($stmt->execute() && $tokenstmt->execute()) {
+    //         return true;
+    //     }
 
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':password', $this->password);
-        $tokenstmt->bindParam(':token', $this->token);
-        $tokenstmt->bindParam(':id', $this->id);
-
-        if ($stmt->execute() && $tokenstmt->execute()) {
-            return true;
-        }
-        printf('error %s. /n', $stmt->error);
-        return false;
-    }
+    //     printf('error %s. /n', $stmt->error);
+    //     // printf('error %s. /n', $tokenstmt->error);
+    //     return false;
+    // }
 
     // public function update()
     // { 

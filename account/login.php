@@ -12,49 +12,29 @@
   <?php
   require_once("../callAPI.php");
   session_start();
-  // $drico = [
-    //   "email"=> "drico",
-    //   "password"=> "diffy",
-    // ];
-    // $intern = [
-      //   "email"=> "intern",
-      //   "password"=> "jiffy",
-      // ];
-      // $JWT->encode($FormJson);
-      // $Jwt = new Jwt($FormJson['email']);
-      // echo"post:<br>";
-      // var_dump($_POST);
-      // $ecoded1 = $user1->encode($drico);
-      // $decoded1 = $user1->decode($ecoded1);
-      // $ecoded2 = $user2->encode($intern);
-      // $decoded2 = $user2->decode($ecoded2);
-      // echo'<br>decoded:<br>';
-      // var_dump($decoded2);
-      // var_dump($decoded1);
-      
-      
-      //form
-      if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        $DBJson = CallAPI("GET", "http://localhost/api/user/read.php");
-        $DBresults = json_decode($DBJson, true)["data"];
-        $FormJson = $_POST;
-        require_once("../core/Jwt.php");
-        $Jwt = new Jwt('login');
-    
-    
+
+  //form
+  if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $DBJson = CallAPI("GET", "http://localhost/api/user/read.php");
+    $DBresults = json_decode($DBJson, true)["data"];
+    $FormJson = $_POST;
 
     foreach ($DBresults as $result) {
-
-      if ($result['email'] === $FormJson['email'] && $result['password'] === $FormJson['password']) {
+      
+     
+      if ($result['email'] === $FormJson['email'] && password_verify($FormJson["password"], $result['password'])) {
         $_SESSION['user'] = [
           'email' => $FormJson['email'],
           'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@"))
         ];
 
 
-        // session_regenerate_id(true);
-        // header('location: /index.php');
-        // exit;
+        session_regenerate_id(true);
+        header('location: /index.php');
+        exit;
+      } else {
+        header('location: /accounts/login.php');
+        exit;
       }
     }
   }
@@ -101,11 +81,11 @@
       </form>
 
       <div class="mt-10">
-      <a
-      href="/account/register.php">
-        <button
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">go to register</button></a>
-        </div>
+        <a href="/account/register.php">
+          <button
+            class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">go
+            to register</button></a>
+      </div>
 
 
     </div>

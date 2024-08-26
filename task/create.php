@@ -10,10 +10,16 @@
 <?php
 require "../partials/nav.php";
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $json = [];
+    foreach ($_POST as $value) {
+        array
+    }
 
-    $Json = CallAPI("POST", "http://localhost/api/task/create.php", $_POST);
-    header("location: /index.php");
-    exit;
+    var_dump($json);
+    // $Json = CallAPI("POST", "http://localhost/api/task/create.php", $Json);
+    // header("location: /index.php");
+    // exit;
+
 }
 ?>
 
@@ -47,15 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                                 <?php
                                 $Json = CallAPI("GET", "http://localhost/api/user/read.php");
                                 $results = json_decode($Json, true)["data"];
-                                foreach ($results as $result) {
-                                    // echo ($result['name']);
-                                }
+                               
                                 ?>
 
-                                <select name='name' id='name'>                               
+                                <select name='name[]' id='name' multiple size="5" >                               
                                    <?php
                                     foreach ($results as $result) {
-                                    echo "<option>";
+                                    echo "<option value ='$result[name]' >";
                                         echo ($result['name']);
                                         echo "</option>";
                                     }

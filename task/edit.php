@@ -15,12 +15,11 @@ $Json = CallAPI("GET", "http://localhost/api/task/read_single.php?id=$id");
 $result = json_decode($Json, true);
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     echo"<br>";
-    var_dump($_POST);
+    // var_dump($_POST);
     echo "<br>";
     $Json = CallAPI("PUT", "http://localhost/api/task/update.php?id=$id", $_POST);
-    echo "<br><br>json:  ";
-    var_dump($Json); 
-    $result = json_decode($Json, true);
+    header("location: /index.php", true);
+    exit;
 }
 ?>
 <body>
@@ -42,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                     <div class="sm:col-span-4">
-                        <label for="name" class="block text-sm font-medium leading-6 text-gray-900">name</label>
+                        <label for="title" class="block text-sm font-medium leading-6 text-gray-900">title</label>
                         <div class="mt-2">
                             <div
                                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                <input type="text" name="name" id="name" autocomplete="name" value="<?php echo $result['name'] ?>"
+                                <input type="text" name="title" id="title" autocomplete="title" value="<?php echo $result['title'] ?>"
                                     class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 value:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
                             </div>
                         </div>
@@ -54,12 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
                     <div class="mt-10 grid col-span-4 grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                         <div class="sm:col-span-4">
-                            <label for="creator"
-                                class="block text-sm font-medium leading-6 text-gray-900">creator</label>
+                            <label for="name"
+                                class="block text-sm font-medium leading-6 text-gray-900">name</label>
                             <div class="mt-2">
                                 <div
                                     class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                    <input type="text" name="creator" id="creator" autocomplete="creator" value="<?php echo ($result['creator']) ?>"
+                                    <input type="text" name="name" id="name" autocomplete="name" value="<?php echo ($result['name']) ?>"
                                         class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 value:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
                                 </div>
                             </div>

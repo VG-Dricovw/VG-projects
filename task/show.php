@@ -13,9 +13,6 @@
     <?php
     require "../partials/nav.php";
     require "../core/Jwt.php";
-    // $jwt = new Jwt('show');
-    var_dump($jwt->getKey());
-
     ?>
 
     <div class=" shadow-md sm:rounded-lg">

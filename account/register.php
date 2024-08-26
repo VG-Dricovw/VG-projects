@@ -19,20 +19,20 @@
 
     // var_dump($FormJson);
     $APIJson = CallAPI("POST", "http://localhost/api/user/create.php", $FormJson);
-    $APIresults = json_decode($APIJson, true);
+    var_dump($APIJson);
+    $APIResults = json_decode($APIJson, true)["message"];
 
-    var_dump($APIresults);
-    if ($APIresults['message'] == 'user created') {
+    if ($APIResults == 'user created') {
       $_SESSION['user'] = [
         'email' => $FormJson['email'],
         'name' => substr($FormJson['email'], 0, strpos($FormJson['email'], "@")),
       ];
 
-      // header('location: /index.php');
-      // var_dump($_SESSION['user']);
-      exit;
+      header('location: /index.php');
+      exit();
     } else {
-      echo 'no user created';
+      header('location: /account/register.php');
+      exit();
     }
 
   }

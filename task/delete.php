@@ -19,9 +19,10 @@
         var_dump($id);
 
         $Json = CallAPI("DELETE", "http://localhost/api/task/delete.php", [$id]);
-        header('Location: ../index.php');
         $result = json_decode($Json, true);
         var_dump($result);
+        header('Location: ../index.php');
+        exit();
     }
 
 
