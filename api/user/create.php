@@ -8,17 +8,22 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 
 include_once "../../core/initialize.php";
 
-
+ 
 $user = new User($db);
 
 
 
 $data = json_decode(file_get_contents("php://input"));
+// echo "api creation";
+var_dump($data);
+require_once("../core/Jwt.php");
+$Jwt = new Jwt(substr($data->email, 0, strpos($data->email, "@")));
 
 
 $user->name = substr($data->email, 0, strpos($data->email, "@"));
 $user->email = $data->email;
 $user->password = $data->password;
+$user->token = $Jwt->encode($data);
 
 $payload = [
     "id"=> $user->id,

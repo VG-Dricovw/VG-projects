@@ -21,7 +21,8 @@ function CallAPI($method, $url, $isData = false) {
             break;
         default:
             if ($isData)
-                $url = sprintf("%s?%s", $url, http_build_query($isData));
+                // $url = sprintf("%s?%s", $url, http_build_query($isData));
+                $url = sprintf("%s", $url);
     }
 
     // Optional Authentication:

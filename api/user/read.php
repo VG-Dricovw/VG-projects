@@ -23,8 +23,7 @@ if ($num > 0) {
             'id' => $id,
             'name' => $name,
             'email' => $email,
-            'password' => $password,
-            'role' => $role
+            'password' => $password
         );
         array_push($user_arr['data'], $user_item);
     }
