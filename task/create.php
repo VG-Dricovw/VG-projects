@@ -11,15 +11,15 @@
 require "../partials/nav.php";
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $json = [];
-    foreach ($_POST as $value) {
-        array
+    for ($i = 0; $i < count($_POST["name"]); $i++) {
+        $json = $_POST;
+        $json['name'] = $_POST['name'][$i];
+        $Json = CallAPI("POST", "http://localhost/api/task/create.php", $json);
     }
+    
 
-    var_dump($json);
-    // $Json = CallAPI("POST", "http://localhost/api/task/create.php", $Json);
-    // header("location: /index.php");
-    // exit;
-
+    header("location: /index.php");
+    exit;
 }
 ?>
 
