@@ -1,17 +1,22 @@
 <?php
 namespace App\Core;
 
-class User
+use \PDO; 
+
+class user
 {
     private $conn;
 
     private $table = "users";
 
     public $id;
-    public $name;
+    public $user_name;
     public $email;
     public $password;
+    public $created_at;
+    public $updated_at;
     public $token;
+    public $user_id;
 
     public function __construct($db)
     {
@@ -34,54 +39,65 @@ class User
     {
         $query = 'SELECT
         id,
-        name,
+        user_name,
         email,
-        password
+        password,
+        created_at,
+        updated_at
         FROM 
-        ' . $this->table . ' WHERE name = :id LIMIT 1';
+        ' . $this->table . ' WHERE id = :id LIMIT 1';
 
 
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $this->id);
+
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->name = $row['name'];
+        $this->user_name = $row['user_name'];
         $this->email = $row['email'];
         $this->password = $row['password'];
+        $this->created_at = $row['created_at'];
+        $this->updated_at = $row['updated_at'];
 
         return $stmt;
     }
 
     public function create()
     {
-        // var_dump("core user");
         $idquery = "SHOW TABLE STATUS LIKE '$this->table'";
         $idstmt = $this->conn->prepare($idquery);
         $idstmt->execute();
 
 
         $row = $idstmt->fetch(PDO::FETCH_ASSOC);
-        $this->id = $row['Auto_increment'];
+        $this->user_id = $row['Auto_increment'];
 
 
-        $query = 'INSERT INTO ' . $this->table . ' SET name = :name, email = :email, password = :password';
-        $tokenquery = "INSERT INTO TOKENS SET id = :id, token = :token";
+        $query = 'INSERT INTO ' . $this->table . ' SET user_name = :user_name, email = :email, password = :password, created_at = :created_at, updated_at = :updated_at';
+        $tokenquery = "INSERT INTO TOKENS SET user_id = :user_id, token = :token, created_at = :created_at, updated_at = :updated_at"; 
 
         $stmt = $this->conn->prepare($query);
         $tokenstmt = $this->conn->prepare($tokenquery);
 
-        $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->user_name = htmlspecialchars(strip_tags($this->user_name));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        $this->created_at = htmlspecialchars(strip_tags($this->created_at));
+        $this->updated_at = htmlspecialchars(strip_tags($this->updated_at));
 
 
-        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':user_name', $this->user_name);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
+        $stmt->bindParam(':created_at', $this->created_at);
+        $stmt->bindParam(':updated_at', $this->updated_at);
+
         $tokenstmt->bindParam(':token', $this->token);
-        $tokenstmt->bindParam(':id', $this->id);
+        $tokenstmt->bindParam(':user_id', $this->user_id);
+        $tokenstmt->bindParam(':created_at', $this->created_at);
+        $tokenstmt->bindParam(':updated_at', $this->updated_at);
 
         if ($stmt->execute() && $tokenstmt->execute()) {
             return true;

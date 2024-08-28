@@ -15,13 +15,12 @@
 
   //form
   if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $DBJson = CallAPI("GET", "http://localhost/api/user/read.php");
+    $DBJson = CallAPI("GET", "http://localhost/app/api/user/read.php");
     $DBresults = json_decode($DBJson, true)["data"];
     $FormJson = $_POST;
 
     foreach ($DBresults as $result) {
       
-     
       if ($result['email'] === $FormJson['email'] && password_verify($FormJson["password"], $result['password'])) {
         $_SESSION['user'] = [
           'email' => $FormJson['email'],
@@ -33,10 +32,11 @@
         header('location: /index.php');
         exit;
       } else {
-        header('location: /accounts/login.php');
-        exit;
+   
       }
     }
+    // header('location: /account/login.php');
+    // exit;
   }
   //redirect and insert session
   ?>

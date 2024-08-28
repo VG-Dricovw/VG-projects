@@ -1,6 +1,4 @@
 <?php
-namespace App\Api\Task;
-
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
@@ -9,29 +7,41 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 
 include_once "../../core/initialize.php";
 
- 
-$user = new User($db);
+use App\Core\user;
+use App\Core\Jwt;
+
+require "../../core/jwt.php";
+
+$user = new user($db);
+
+$date = date('d/m/Y H:i:s ', time());
 
 
 
 $data = json_decode(file_get_contents("php://input"));
 // echo "<br>data:";
 // var_dump($data);
-// echo "<br>";
-require_once("../../core/Jwt.php");
+// echo "<br>"; 
 
-$name = substr($data->email, 0, strpos($data->email, "@"));
-$user->name = $name;
+$user_name = substr($data->email, 0, strpos($data->email, "@"));
+$user->user_name = $user_name;
 $user->email = $data->email;
 $user->password = $data->password;
+$user->created_at = $date;
+$user->updated_at = $date;
+
 
 $Json = [
-    "name" => $user->name,
+    "user_name" => $user->user_name,
     "email"=> $user->email,
     "password" => $user->password,
+    "created_at" => $user->created_at,
+    "updated_at"=> $user->updated_at
 ];
-$Jwt = new Jwt($user->name);
-$token = $Jwt->encode($Json);
+
+// var_dump($user->user_name);
+$jwt = new Jwt($user->user_name); 
+$token = $jwt->encode($Json);
 
 $user->token = $token;
 if ($user->create()) {

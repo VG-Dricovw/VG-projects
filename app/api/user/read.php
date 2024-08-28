@@ -1,18 +1,22 @@
 <?php
-namespace App\Api\Task;
+
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 include_once "../../core/initialize.php";
 
+use App\Core\User;
 
-$user = new User($db);
+
+$user = new user($db);
 
 
 $result = $user->read();
 
 $num = $result->rowCount();
+
+    
 
 if ($num > 0) {
     $user_arr = array();
@@ -22,9 +26,11 @@ if ($num > 0) {
         extract($row);
         $user_item = array(
             'id' => $id,
-            'name' => $name,
-            'email' => $email,
-            'password' => $password
+            "user_name" => $user_name,
+            "email" => $email,
+            "password" => $password,
+            "created_at" => $created_at,
+            "updated_at" => $updated_at
         );
         array_push($user_arr['data'], $user_item);
     }

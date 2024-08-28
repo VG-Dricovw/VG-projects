@@ -1,7 +1,7 @@
 <?php
 namespace App\Core;
 
-class Auth
+class auth
 {
     public function getAuthorizationHeader()
     {

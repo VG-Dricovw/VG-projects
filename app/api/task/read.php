@@ -1,13 +1,12 @@
 <?php
-namespace App\Api\Task;
-
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 include_once "../../core/initialize.php";
 
- 
-$task = new Task($db);
+use App\Core\task;
+
+$task = new task($db);
 
 
 $result = $task->read();
@@ -23,10 +22,12 @@ if ($num > 0) {
         $task_item = array(
             'id' => $id,
             'title' => $title,
-            'name'=> $name,
+            'user_name'=> $user_name,
             'category'=> $category,
             'est_time'=> $est_time,
             'real_time'=> $real_time,
+            "created_at" => $created_at,
+            "updated_at"=> $updated_at
         );
         array_push($task_arr['data'], $task_item);
     }

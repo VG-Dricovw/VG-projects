@@ -6,9 +6,9 @@ header("Content-Type: application/json");
 
 include_once "../../core/initialize.php";
 
+use App\Core\token;
 
-$token = new Token($db);
-
+$token = new token($db);
 $token->id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
 
 // $token->id = $token->name $token
@@ -17,8 +17,10 @@ $token->id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
 $token->read_single();
 
 $token_arr = array(
-    "id" => $token->id,
-    "token" => $token->token
+    "user_id" => $token->user_id,
+    "token" => $token->token,
+    "created_at" => $token->created_at,
+    "updated_at"=> $token->updated_at
 );
 
 

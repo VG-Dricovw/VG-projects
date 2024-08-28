@@ -1,7 +1,9 @@
 <?php
 
-session_destroy();
-//token destroy
+var_dump($_SESSION);
 
-header("location: /account/login.php");
+// session_destroy();
+
+
+// header("location: /account/login.php");
 exit;

@@ -6,8 +6,9 @@ header('Content-Type: application/json');
 
 include_once "../../core/initialize.php";
 
+use App\Core\token;
 
-$token = new Token($db);
+$token = new token($db);
 
 
 $result = $token->read();
@@ -21,8 +22,10 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $token_item = array(
-            'id' => $id,
+            'user_id' => $userid,
             'token' => $token,
+            'created_at' => $created_at,
+            'updated_at'=> $updated_at
         );
         array_push($token_arr['data'], $token_item);
     }

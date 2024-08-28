@@ -1,6 +1,8 @@
 <?php
 namespace App\Core;
 
+use \InvalidArgumentException;
+use \Exception;
 
 class Jwt
 {

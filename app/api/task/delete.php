@@ -7,10 +7,12 @@ header('Access-Control-Allow-Methods: DELETE');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization ');
 
 
-// include_once "../../core/initialize.php";
+include_once "../../core/initialize.php";
 
 
-$task = new Task($db);
+use App\Core\task;
+
+$task = new task($db);
 
 $data = json_decode(file_get_contents("php://input"));
 //Jwt->decode('token from endcode')

@@ -1,14 +1,16 @@
 <?php
 namespace App\Core;
 
-class Token
+class token
 {
     private $conn;
 
     private $table = "tokens";
 
-    public $id;
+    public $user_id;
     public $token;
+    public $created_at;
+    public $updated_at;
 
     public function __construct($db)
     {
@@ -30,19 +32,23 @@ class Token
     public function read_single()
     {
         $query = 'SELECT
-        id,
-        token
+        user_id,
+        token,
+        created_at,
+        updated_at
         FROM 
-        ' . $this->table . ' WHERE id = :id LIMIT 1';
+        ' . $this->table . ' WHERE user_id = :user_id LIMIT 1';
 
 
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":user_id", $this->user_id);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $this->token = $row['token'];
+        $this->created_at = $row['created_at'];
+        $this->updated_at = $row['updated_at'];
 
         return $stmt;
     }
@@ -118,14 +124,14 @@ class Token
 
     public function delete()
     {
-        $query = 'DELETE FROM ' . $this->table . ' WHERE ID = :id';
+        $query = 'DELETE FROM ' . $this->table . ' WHERE user_id = :user_id';
         $stmt = $this->conn->prepare($query);
 
-        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         // var_dump($this->id);
 
 
-        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':user_id', $this->user_id);
 
         if ($stmt->execute()) {
             return true;
