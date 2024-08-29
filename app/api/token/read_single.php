@@ -9,7 +9,7 @@ include_once "../../core/initialize.php";
 use App\Core\token;
 
 $token = new token($db);
-$token->id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
+$token->user_id = isset($_GET["id"]) ? intval($_GET["id"]) : die();
 
 // $token->id = $token->name $token
 // var_dump($token->id);

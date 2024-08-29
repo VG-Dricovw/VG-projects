@@ -18,8 +18,8 @@
     $FormJson = $_POST;
 
     // var_dump($FormJson);
-    $APIJson = CallAPI("POST", "http://localhost/api/user/create.php", $FormJson);
-    var_dump($APIJson);
+    $APIJson = CallAPI("POST", "http://localhost/app/api/user/create.php", $FormJson);
+    // var_dump($APIJson);
     $APIResults = json_decode($APIJson, true)["message"];
 
     if ($APIResults == 'user created') {

@@ -5,26 +5,47 @@ if (!$_SESSION ?? false) {
   exit();
 }
 
-$UserJson = CallAPI("GET", "http://localhost/api/user/read.php");
+$UserJson = CallAPI("GET", "http://localhost/app/api/user/read.php");
 $Userresults = json_decode($UserJson, true);
 foreach ($Userresults as $result) {
   foreach ($result as $value) {
-    if ($value['name'] === $_SESSION['user']['name']) {
+    if ($value['user_name'] === $_SESSION['user']['name']) {
       $userid = $value['id'];
-    } 
+    }
   }
 }
 $id = $userid;
 
-$TokenJson = CallAPI("GET", "http://localhost/api/token/read_single.php?id=$id");
+$TokenJson = CallAPI("GET", "http://localhost/app/api/token/read_single.php?id=$id");
+// var_dump(json_decode($TokenJson, true));
+use App\Core\jwt;
+require "app/core/jwt.php";
+// $name = $_SESSION['user']['name'];
+// var_dump($name);
+$name = "drico123";
+$jwt = new Jwt($name);
 // var_dump((json_decode($TokenJson, true)["token"]));
-require_once("core/Jwt.php");
-$name = $_SESSION['user']['name'];
+$json = [
+  "title" => "test creating api",
+  "user_name" => "$name",
+  "category" => "not urgent",
+  "est_time" => "2 mins",
+  "real_time" => "3 days"
+];
+$encodetest = $jwt->encode($json);
+var_dump($encodetest);
+// $header = json_encode([
+//   "alg" => "HS256",
+//   "typ" => "JWT"
+// ]);
+// $hash = hash_hmac("sha256", $header . "." . $json, "hello", true);
+// $hash = base64_encode($hash);
+// var_dump($hash);
+// var_dump(json_decode($TokenJson, true)["token"]);
 
-use App\Core\Jwt;
-$Jwt = Jwt;
-$decoded = Jwt::class->decode(json_decode($TokenJson, true)["token"]);
-// var_dump($decoded['name']);
+
+$decoded = $jwt->decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJuZXd0b2tlbiIsImVtYWlsIjoibmV3dG9rZW5AZ21haWwuY29tIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImNyZWF0ZWRfYXQiOiIyOVwvMDhcLzIwMjQgMTA6MzA6MjEgIiwidXBkYXRlZF9", "inwhat");
+var_dump($decoded);
 
 
 ?>
@@ -73,10 +94,10 @@ $decoded = Jwt::class->decode(json_decode($TokenJson, true)["token"]);
       <tbody>
         <?php
 
-        $TaskJson = CallAPI("GET", "http://localhost/api/task/read.php");
+        $TaskJson = CallAPI("GET", "http://localhost/app/api/task/read.php");
         $Taskresults = json_decode($TaskJson, true);
         // var_dump($Taskresults);
-
+        
         foreach ($Taskresults as $result) {
           foreach ($result as $value) {
             // var_dump($value['name']);

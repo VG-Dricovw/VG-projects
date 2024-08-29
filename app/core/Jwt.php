@@ -4,7 +4,7 @@ namespace App\Core;
 use \InvalidArgumentException;
 use \Exception;
 
-class Jwt
+class jwt
 {
 
     public function __construct(private string $key)
@@ -31,7 +31,8 @@ class Jwt
 
         $signature = hash_hmac("sha256", $header . "." . $payload, $this->key, true);
         $signature = $this->base64URLEncode($signature);
-        return $header . "." . $payload . "." . $signature;
+        $token =  $header . "." . $payload . "." . $signature;
+        return $token;
     }
 
 

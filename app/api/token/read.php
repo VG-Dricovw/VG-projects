@@ -1,5 +1,5 @@
 <?php
-namespace App\Api\Task;
+
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
@@ -22,7 +22,7 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $token_item = array(
-            'user_id' => $userid,
+            'user_id' => $user_id,
             'token' => $token,
             'created_at' => $created_at,
             'updated_at'=> $updated_at

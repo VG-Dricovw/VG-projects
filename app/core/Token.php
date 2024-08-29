@@ -1,7 +1,9 @@
 <?php
 namespace App\Core;
 
-class token
+use \PDO;
+
+class Token
 {
     private $conn;
 
@@ -37,16 +39,17 @@ class token
         created_at,
         updated_at
         FROM 
-        ' . $this->table . ' WHERE user_id = :user_id LIMIT 1';
+        ' . $this->table . ' WHERE user_id = :user_id LIMIT 3';
 
 
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":user_id", $this->user_id);
         $stmt->execute();
+        // var_dump( $this->user_id);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
         $this->token = $row['token'];
+        $this->user_id = $row['user_id'];
         $this->created_at = $row['created_at'];
         $this->updated_at = $row['updated_at'];
 

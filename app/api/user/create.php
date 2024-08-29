@@ -35,8 +35,6 @@ $Json = [
     "user_name" => $user->user_name,
     "email"=> $user->email,
     "password" => $user->password,
-    "created_at" => $user->created_at,
-    "updated_at"=> $user->updated_at
 ];
 
 // var_dump($user->user_name);
