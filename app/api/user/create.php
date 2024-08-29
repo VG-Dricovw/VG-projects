@@ -8,9 +8,17 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 include_once "../../core/initialize.php";
 
 use App\Core\user;
-use App\Core\Jwt;
-
-require "../../core/jwt.php";
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+require_once('../../../vendor/autoload.php');
+$jwt = new JWT;
+$headers = apache_request_headers();
+foreach ($headers as $header => $value) {
+    if ($header === "Authorization") {
+        $token = substr($value, 7);
+    }
+}
+$json = (array) $jwt->decode($token, new Key("token", 'HS512'));
 
 $user = new user($db);
 
@@ -38,8 +46,13 @@ $Json = [
 ];
 
 // var_dump($user->user_name);
-$jwt = new Jwt($user->user_name); 
-$token = $jwt->encode($Json);
+
+
+if ($user_name === $json['username']) {
+    echo json_encode(array("message" => "no auth", "username" => $user_arr["user_name"]));
+    exit;
+}
+
 
 $user->token = $token;
 if ($user->create()) {

@@ -6,12 +6,17 @@ header('Content-Type: application/json');
 
 include_once "../../core/initialize.php";
 
+var_dump(headers_list());
+
+
 use App\Core\token;
 
 $token = new token($db);
 
 
-$result = $token->read();
+
+
+
 
 $num = $result->rowCount();
 
@@ -27,6 +32,7 @@ if ($num > 0) {
             'created_at' => $created_at,
             'updated_at'=> $updated_at
         );
+
         array_push($token_arr['data'], $token_item);
     }
     echo json_encode($token_arr);

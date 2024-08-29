@@ -1,6 +1,6 @@
 <?php
 
-function CallAPI($method, $url, $isData = false, $token = false) {
+function CallAPI($method, $url, $isData = false) {
     $curl = curl_init();
     // echo "<br>callapi: >";
     // var_dump($method);
@@ -28,7 +28,6 @@ function CallAPI($method, $url, $isData = false, $token = false) {
     // Optional Authentication:
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($curl, CURLOPT_USERPWD, "username:password");
-    curl_setopt($curl, CURLOPT_HEADER, "Bearer: " . $token);
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
