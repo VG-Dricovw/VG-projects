@@ -1,5 +1,9 @@
 {
-    "name": "vendor/name",
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": ["laravel", "framework"],
+    "license": "MIT",
     "require": {
         "vlucas/phpdotenv": "^2.4",
         "firebase/php-jwt": "^6.10",
